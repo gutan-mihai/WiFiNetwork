@@ -10,7 +10,7 @@ Library to work with WiFi in ESP8266
 
 ## Structure
 ```cpp
-// start to work with WiFi
+// start WiFi access point
 void start();
 
 // handle server client and process DNS request
@@ -22,7 +22,7 @@ bool tick();
 #include <ESP8266WiFi.h>
 #include <WiFiNetwork.h>
 
-// create WiFiNetwork instance
+// create global WiFiNetwork instance
 WiFiNetwork network;
 
 unsigned long previousMillis = 0;
@@ -30,8 +30,8 @@ unsigned long previousMillis = 0;
 void setup() {
   Serial.begin(9600);
 
-  // start memory
-  byte stat = memory.begin(0, 'b');
+  // start WiFi access point
+  network.start();
 }
 
 void loop() {
