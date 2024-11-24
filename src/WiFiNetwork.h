@@ -18,6 +18,7 @@
 
       void start();
       bool tick();
+      bool isConnected();
 
     private:
       EEManager *_memory;

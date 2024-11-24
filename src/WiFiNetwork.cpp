@@ -62,6 +62,10 @@ bool WiFiNetwork::tick() {
   return 0;
 }
 
+bool WiFiNetwork::isConnected() {
+  return WiFi.status() == WL_CONNECTED;
+}
+
 void WiFiNetwork::stop() {
   WiFi.softAPdisconnect();
   server.stop();
@@ -94,14 +98,15 @@ void WiFiNetwork::connect(bool saveCredentials) {
   }
 
   uint32_t tmr = millis();
-  while (WiFi.status() != WL_CONNECTED) {
+  while (!isConnected()) {
+    yield();
     delay(500);
     if (millis() - tmr > 15000) {
       break;
     }
   }
 
-  if (WiFi.status() == WL_CONNECTED) {
+  if (isConnected()) {
     _status = 2;
     WiFi.setAutoReconnect(true);
     WiFi.persistent(true);
